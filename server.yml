@@ -1,0 +1,27 @@
+---
+- name: install http packages and list git configs
+  hosts: all
+  become: yes
+  tasks:
+   - name: updatea all pavkage to their latest version
+     apt:
+      name: "*"
+      state: latest
+      
+   - name: install apache2 http
+     apt:
+      name: apache2
+      state: present
+      
+   - name: copy index test page
+     copy:
+       src: "index.html"
+       dest: "/var/www/html/index.html"
+       force: yes
+       
+   - name: Restart Apache
+     service:
+        name: apache2
+        state: restarted
+              
+  
